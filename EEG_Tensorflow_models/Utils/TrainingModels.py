@@ -3,6 +3,7 @@ from EEG_Tensorflow_models.Models.DeepConvNet import DeepConvNet
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
+from sklearn.model_selection import train_test_split,StratifiedKFold
 
 def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
     if optimizer == 'AdamW':
