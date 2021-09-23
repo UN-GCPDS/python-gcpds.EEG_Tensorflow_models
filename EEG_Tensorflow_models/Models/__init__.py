@@ -1,1 +1,1 @@
- 
+from .DeepConvNet import DeepConvNet
