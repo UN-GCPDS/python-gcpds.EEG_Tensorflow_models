@@ -6,5 +6,5 @@
 !pip install -U https://api.github.com/repos/braindecode/braindecode/zipball/master --no-deps
 !pip install -U skorch
 
-# Install some utils tf libraries 
+# Install some utils tf libraries ...
 !pip install tensorflow-addons
