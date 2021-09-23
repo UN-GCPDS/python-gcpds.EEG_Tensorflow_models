@@ -8,13 +8,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='EEG_Tensorflow_models',
-    version='0.1a3',
+    version='0.1',
     packages=['EEG_Tensorflow_models'],
 
-    author='D.G Garcia-Murillo','J.C Caicedo-Acosta'
-    author_email='dggarciam@unal.edu.co','jccaicedoac@unal.edu.co'
-    maintainer='D.G Garcia-Murillo','J.C Caicedo-Acosta'
-    maintainer_email='dggarciam@unal.edu.co','jccaicedoac@unal.edu.co'
+    author='D.G Garcia-Murillo, J.C Caicedo-Acosta',
+    author_email='dggarciam@unal.edu.co, jccaicedoac@unal.edu.co',
+    maintainer='D.G Garcia-Murillo, J.C Caicedo-Acosta',
+    maintainer_email='dggarciam@unal.edu.co, jccaicedoac@unal.edu.co',
 
     download_url='',
 
