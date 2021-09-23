@@ -1,7 +1,7 @@
-from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint,Callback
 
 
-class ThresholdCallback(tf.keras.callbacks.Callback):
+class ThresholdCallback(Callback):
     def __init__(self, threshold):
         super(ThresholdCallback, self).__init__()
         self.threshold = threshold
