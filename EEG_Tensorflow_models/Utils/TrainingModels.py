@@ -11,7 +11,7 @@ def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
     return opt
 
 def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, dropoutRate = 0.5):
-    if model_name=='DeepConvNet2017':
+    if model_name=='DeepConvNet':
         model = DeepConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate =model_args['dropoutRate'],version='2017')
     return model
 
