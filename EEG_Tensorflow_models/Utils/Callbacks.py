@@ -19,7 +19,7 @@ def get_callbacks(callbacks_names,call_args):
                                   mode=call_args[i]['mode'],verbose = call_args[i]['verbose'],restore_best_weights=call_args[i]['restore_best_weights'])
         elif callbacks_names[j]=='checkpoint':
             callb = ModelCheckpoint(filepath=call_args[i]['filepath'],save_format=call_args[i]['save_format'], monitor=call_args[i]['monitor'],
-                                    verbose=call_args[i]['verbose'],save_best_only=call_args[i]['save_best_only'])
+                                    verbose=call_args[i]['verbose'],save_weights_only=call_args[i]['save_weights_only'],save_best_only=call_args[i]['save_best_only'])
         elif callbacks_names[j]=='Threshold':
             callb = ThresholdCallback(threshold=call_args[i]['threshold'])
         callbacks[j]=callb
