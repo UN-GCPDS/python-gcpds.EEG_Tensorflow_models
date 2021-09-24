@@ -152,7 +152,7 @@ class train_model_cv():
 
                 self.model.load_weights(self.callbacks['checkpoint_train'+str(c+1)].filepath)
 
-                preds.append(model.predict(X_test))
+                preds.append(self.model.predict(X_test))
                 y_preds = preds[c].argmax(axis = -1)
                 y_true.append(y_test)
                 acc.append(np.mean(y_preds == y_test))
