@@ -21,6 +21,8 @@ setup(
     install_requires=['numpy',
                       'scipy',
                       'matplotlib',
+                      'tensorflow',
+                      'tensorflow-addons',
                       'mne',
                       'moabb',
                       'skorch',
