@@ -24,7 +24,7 @@ setup(
                       'mne',
                       'moabb',
                       'skorch',
-                      'Braindecode',
+                      'braindecode @ git+ssh://git@github.com/braindecode/braindecode/zipball/master=braindecode',
                       ],
 
 #     extras_require={
