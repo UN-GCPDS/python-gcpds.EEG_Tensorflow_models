@@ -26,8 +26,11 @@ setup(
                       'mne',
                       'moabb',
                       'skorch',
+                      'braindecode',
                       ],
-
+    dependency_links=[
+        "git+ssh://git@github.com/braindecode/braindecode/zipball/master=braindecode"
+    ]
 #     extras_require={
 #         'utils': ['sphinx',
 #                   'colorama',
