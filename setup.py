@@ -27,7 +27,7 @@ setup(
                       'moabb',
                       'skorch',
                       'braindecode',
-                      'braindecode @ git+ssh://git@github.com/braindecode/braindecode',
+                      'braindecode @ git+https://github.com/braindecode/braindecode',
                       ],
 #     extras_require={
 #         'utils': ['sphinx',
