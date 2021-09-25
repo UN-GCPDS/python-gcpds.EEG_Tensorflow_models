@@ -22,6 +22,9 @@ setup(
                       'scipy',
                       'matplotlib',
                       'mne',
+                      'moabb',
+                      'skorch',
+                      'Braindecode',
                       ],
 
 #     extras_require={
