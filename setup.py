@@ -27,7 +27,7 @@ setup(
                       'moabb',
                       'skorch',
                       'braindecode',
-                      'braindecode @ git+https://github.com/braindecode/braindecode/zipball@master',
+                      'braindecode @ git+ssh://git@github.com/braindecode/braindecode/zipball/master',
                       ],
 #     extras_require={
 #         'utils': ['sphinx',
