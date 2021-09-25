@@ -19,14 +19,13 @@ setup(
     download_url='',
 
     install_requires=['numpy',
-                      'scipy',
+                      'scipy>=1.4.0',
                       'matplotlib',
                       'tensorflow>=2.3.0,<2.5.0',
                       'tensorflow-addons',
-                      'mne',
-                      'moabb',
+                      'mne>=0.23.4',
+                      'moabb>=0.4.2',
                       'skorch',
-                      'braindecode',
                       'braindecode @ git+https://github.com/braindecode/braindecode',
                       ],
 #     extras_require={
