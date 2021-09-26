@@ -18,19 +18,15 @@ setup(
 
     download_url='',
 
-    install_requires=['numpy',
-                      'scipy>=1.4.0',
-                      'matplotlib',
+    install_requires=['braindecode @ git+https://github.com/braindecode/braindecode',
+                      #'numpy',
+                      #'scipy>=1.4.0',
+                      #'matplotlib',
                       'tensorflow-addons',
-                      'mne>=0.23.4',
+                      #'mne>=0.23.4',
                       'moabb>=0.4.2',
-                      'skorch',
-                      #'braindecode @ git+https://github.com/braindecode/braindecode',
+                      #'skorch',
                       ],
-   dependency_links=[
-        "git+https://github.com/braindecode/braindecode",
-    ],
-
 
     include_package_data=True,
     license='Simplified BSD License',
