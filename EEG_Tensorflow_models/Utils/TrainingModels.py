@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models.DeepConvNet import DeepConvNet
+from EEG_Tensorflow_models.Models import DeepConvNet,EEGNet
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
