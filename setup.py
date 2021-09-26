@@ -24,7 +24,7 @@ setup(
                       'tensorflow-addons',
                       'mne>=0.23.4',
                       'moabb>=0.4.2',
-                      'skorch --no-deps',
+                      'skorch',
                       'braindecode @ git+https://github.com/braindecode/braindecode',
                       ],
 
