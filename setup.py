@@ -24,7 +24,7 @@ setup(
                       #'matplotlib',
                       'tensorflow-addons',
                       #'mne>=0.23.4',
-                      'moabb>=0.4.2',
+                      #'moabb>=0.4.2',
                       #'skorch',
                       ],
 
