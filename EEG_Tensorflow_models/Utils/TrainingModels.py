@@ -14,7 +14,7 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
     if model_name=='DeepConvNet':
         model = DeepConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate =model_args['dropoutRate'],version='2017')
     elif model_name=='EEGNet':
-        model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType']):
+        model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType'])
     return model
 
 def get_loss(loss_name):
