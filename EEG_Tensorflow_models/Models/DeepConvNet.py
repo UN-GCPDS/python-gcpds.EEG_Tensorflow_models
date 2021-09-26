@@ -1,13 +1,9 @@
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Activation, Permute, Dropout
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, AveragePooling2D
-from tensorflow.keras.layers import SeparableConv2D, DepthwiseConv2D
+from tensorflow.keras.layers import Dense, Activation, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import SpatialDropout2D
-from tensorflow.keras.regularizers import l1_l2
 from tensorflow.keras.layers import Input, Flatten
 from tensorflow.keras.constraints import max_norm
-from tensorflow.keras import backend as K
 
 
 
