@@ -24,20 +24,9 @@ setup(
                       'tensorflow-addons',
                       'mne>=0.23.4',
                       'moabb>=0.4.2',
-                      'skorch',
-                      'braindecode @ git+https://github.com/braindecode/braindecode --no-deps',
+                      'skorch --no-deps',
+                      'braindecode @ git+https://github.com/braindecode/braindecode',
                       ],
-#     extras_require={
-#         'utils': ['sphinx',
-#                   'colorama',
-#                   'jinja2',
-#                   'ipython',
-#                   ],
-#     },
-
-#     scripts=[
-#        "cmd/gcpds_distutils",
-#     ],
 
 
     include_package_data=True,
