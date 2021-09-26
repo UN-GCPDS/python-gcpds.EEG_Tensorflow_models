@@ -25,8 +25,11 @@ setup(
                       'mne>=0.23.4',
                       'moabb>=0.4.2',
                       'skorch',
-                      'braindecode @ git+https://github.com/braindecode/braindecode',
+                      #'braindecode @ git+https://github.com/braindecode/braindecode',
                       ],
+   dependency_links=[
+        "git+https://github.com/braindecode/braindecode",
+    ],
 
 
     include_package_data=True,
