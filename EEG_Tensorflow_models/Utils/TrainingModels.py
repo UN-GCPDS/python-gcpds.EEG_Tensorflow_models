@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split,StratifiedKFold
 def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
     if optimizer == 'AdamW':
         opt = tfa.optimizers.AdamW(learning_rate=opt_args['lr'],weight_decay=opt_args['weight_decay'])
+    elif optimizer == 'Adam':
+        opt = tfa.optimizers.Adam(learning_rate=opt_args['lr'],beta_1=opt_args['beta_1'])
     return opt
 
 def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, dropoutRate = 0.5):
