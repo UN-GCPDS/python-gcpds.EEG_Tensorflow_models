@@ -19,6 +19,7 @@ setup(
     download_url='',
 
     install_requires=['braindecode @ git+https://github.com/braindecode/braindecode',
+                      'moabb @ git+https://github.com/NeuroTechX/moabb.git@v0.2.0',
                       #'numpy',
                       #'scipy>=1.4.0',
                       #'matplotlib',
