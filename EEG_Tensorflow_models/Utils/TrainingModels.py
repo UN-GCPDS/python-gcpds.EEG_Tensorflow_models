@@ -74,11 +74,16 @@ class train_model_cv():
             if autoencoder:
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
+                stopep = 'val_Calssif_loss'
+                losstop = 'Classif_loss'
+            else:
+                stopep = 'val_loss'
+                losstop = 'loss'
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
             History.append(history1)
-            stop_epoch= np.argmin(history1.history[self.callbacks['early_stopping_train'].monitor])
-            loss_stop = history1.history[self.callbacks['early_stopping_train'].monitor][stop_epoch]
+            stop_epoch= np.argmin(history1.history[stopep])
+            loss_stop = history1.history[losstop][stop_epoch]
 
             self.model.load_weights(self.callbacks['checkpoint_train'].filepath)
             
