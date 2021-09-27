@@ -20,7 +20,7 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
     elif model_name=='ShallowConvNet':
         model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],version = model_args['version'])
     elif model_name=='DMTL_BCI':
-        model = DMTL_BCI(nb_classesmodel_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
+        model = DMTL_BCI(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
     return model
 
 def get_loss(loss_name):
