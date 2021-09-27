@@ -60,12 +60,9 @@ class train_model_cv():
         preds = self.model.predict(X)
         return preds
 
-    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None):
-        History = []
-        if type(y)==list:
-            num_classes = len(np.unique(y[-1]))
-        else:
-            num_classes = len(np.unique(y))
+    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False):
+        
+        num_classes = len(np.unique(y))
         if val_mode=='schirrmeister2017':
 
             X_tr, X_ts, y_tr, y_ts = train_test_split(X, y, test_size=0.2, random_state=self.seed)
