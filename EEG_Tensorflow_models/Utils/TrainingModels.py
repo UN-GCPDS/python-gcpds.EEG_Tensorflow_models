@@ -61,7 +61,7 @@ class train_model_cv():
         return preds
 
     def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False):
-        
+        History = []
         num_classes = len(np.unique(y))
         if val_mode=='schirrmeister2017':
 
