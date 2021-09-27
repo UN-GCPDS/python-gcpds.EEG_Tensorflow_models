@@ -26,11 +26,11 @@ def DMTL_BCI(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5):
     block1       = BatchNormalization(epsilon=1e-05, momentum=0.1)(block1)
     Act1         = Activation('elu')(block1)
     block1       = AveragePooling2D(pool_size=pool, strides=strid)(Act1)
-    block1       = Dropout(dropoutRate)(block1)
+    block1       = Dropout(dropoutRate,name='bottleneck')(block1)
 
     ConvC        = Conv2D(nb_classes, (1, block1.shape[2]),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block1)
     flat         = Flatten(name='F_1')(ConvC)
-    softmax      = Activation('softmax',name='A_out')(flat)
+    softmax      = Activation('softmax',name='Classif')(flat)
 
     block2       = Resizing(Act1.shape[1], Act1.shape[2])(block1)
     block2       = Conv2DTranspose(40, (Chans, 1), use_bias=bias_spatial, 
