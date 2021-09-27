@@ -82,7 +82,7 @@ class train_model_cv():
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
             History.append(history1)
-            print(history1.keys())
+            print(history1.history.keys())
             stop_epoch= np.argmin(history1.history[stopep])
             loss_stop = history1.history[losstop][stop_epoch]
 
