@@ -1,17 +1,24 @@
 
-from EEG_Tensorflow_models.Models.DeepConvNet import DeepConvNet
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
+from sklearn.model_selection import train_test_split,StratifiedKFold
 
 def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
     if optimizer == 'AdamW':
         opt = tfa.optimizers.AdamW(learning_rate=opt_args['lr'],weight_decay=opt_args['weight_decay'])
+    elif optimizer == 'Adam':
+        opt = tf.keras.optimizers.Adam(learning_rate=opt_args['lr'],beta_1=opt_args['beta_1'])
     return opt
 
 def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, dropoutRate = 0.5):
-    if model_name=='DeepConvNet2017':
+    if model_name=='DeepConvNet':
         model = DeepConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate =model_args['dropoutRate'],version='2017')
+    elif model_name=='EEGNet':
+        model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType'])
+    elif model_name=='ShallowConvNet':
+        model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],version = model_args['version'])
     return model
 
 def get_loss(loss_name):
@@ -151,7 +158,7 @@ class train_model_cv():
 
                 self.model.load_weights(self.callbacks['checkpoint_train'+str(c+1)].filepath)
 
-                preds.append(model.predict(X_test))
+                preds.append(self.model.predict(X_test))
                 y_preds = preds[c].argmax(axis = -1)
                 y_true.append(y_test)
                 acc.append(np.mean(y_preds == y_test))

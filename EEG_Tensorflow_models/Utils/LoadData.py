@@ -1,7 +1,7 @@
 from braindecode.datasets.moabb import MOABBDataset
 from braindecode.preprocessing.preprocess import (exponential_moving_standardize, preprocess, Preprocessor, scale)
 from braindecode.preprocessing.windowers import create_windows_from_events
-
+import numpy as np
 
 
 def get_epochs(dset):
