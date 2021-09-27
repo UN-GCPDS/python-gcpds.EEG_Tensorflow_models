@@ -25,11 +25,13 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
 
 def get_loss(loss_name):
     loss = []
+    if type(loss_name)==str:
+        loss_name = [loss_name]
     for i in loss_name:
         if i == 'CategoricalCrossentropy':
-            loss = tf.keras.losses.CategoricalCrossentropy()
+            loss.append(tf.keras.losses.CategoricalCrossentropy())
         elif i == 'mse':
-            loss = tf.keras.losses.MeanSquaredError()
+            loss.append(tf.keras.losses.MeanSquaredError())
     return loss
 
 
