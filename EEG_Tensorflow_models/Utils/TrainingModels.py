@@ -19,11 +19,17 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
         model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType'])
     elif model_name=='ShallowConvNet':
         model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],version = model_args['version'])
+    elif model_name=='DMTL_BCI':
+        model = DMTL_BCI(nb_classesmodel_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
     return model
 
 def get_loss(loss_name):
-    if loss_name == 'CategoricalCrossentropy':
-        loss = tf.keras.losses.CategoricalCrossentropy()
+    loss = []
+    for i in loss_name:
+        if i == 'CategoricalCrossentropy':
+            loss = tf.keras.losses.CategoricalCrossentropy()
+        elif i == 'mse':
+            loss = tf.keras.losses.MeanSquaredError()
     return loss
 
 
@@ -40,7 +46,7 @@ class train_model_cv():
     def create_model(self):
         tf.keras.backend.clear_session()
         tf.random.set_seed(self.seed)
-        self.model.compile(loss=[self.loss], optimizer= self.optimizer, metrics=self.metrics)
+        self.model.compile(loss=self.loss, optimizer= self.optimizer, metrics=self.metrics)
     
     def fit_model(self,X,y,X_val,y_val,batch_size,epochs,verbose,callbacks,retrain=False):
         if retrain==False:
