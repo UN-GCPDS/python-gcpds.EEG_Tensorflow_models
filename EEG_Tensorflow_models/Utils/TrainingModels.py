@@ -99,7 +99,11 @@ class train_model_cv():
             History.append(history2)
             self.model.load_weights(self.callbacks['checkpoint_valid'].filepath)
 
-            self.preds = self.predict(X_val)
+            if autoencoder:
+                self.preds = self.predict(X_val)[-1]
+            else:
+                self.preds = self.predict(X_val)
+                
             self.y_true = y_val
         
         elif val_mode=='schirrmeister2017_legal':
