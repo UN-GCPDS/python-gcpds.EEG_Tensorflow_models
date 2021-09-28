@@ -1,7 +1,7 @@
-from tf.keras.layers import Reshape, Dropout, Activation, BatchNormalization, Concatenate
-from tf.keras.layers import Input, Flatten, Dense, Softmax
-from tf.keras.layers import SeparableConv2D, AveragePooling2D, DepthwiseConv2D, Conv2D
-from tf.keras.constraints import MaxNorm
+from tensorflow.keras.layers import Reshape, Dropout, Activation, BatchNormalization, Concatenate
+from tensorflow.keras.layers import Input, Flatten, Dense, Softmax
+from tensorflow.keras.layers import SeparableConv2D, AveragePooling2D, DepthwiseConv2D, Conv2D
+from tensorflow.keras.constraints import MaxNorm
 from .TF_blocks import TCN_residualblock
 
 def TCNet_Fusion(nb_classes, Chans = 64, Samples = 128, Ke_1 = 32, 
