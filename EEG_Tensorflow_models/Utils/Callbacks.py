@@ -2,13 +2,13 @@ from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint,Callback
 
 
 class ThresholdCallback(Callback):
-    def __init__(self, threshold,log_name="val_loss"):
+    def __init__(self, threshold):
         super(ThresholdCallback, self).__init__()
         self.threshold = threshold
-        self.log_name  = log_name
+        #self.log_name  = log_name
     
     def on_epoch_end(self, epoch, logs=None): 
-        val_loss = logs[self.log_name]
+        val_loss = logs[val_loss]
         if val_loss <= self.threshold:
             self.model.stop_training = True
 
