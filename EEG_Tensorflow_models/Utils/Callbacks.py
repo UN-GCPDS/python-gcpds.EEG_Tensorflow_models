@@ -8,7 +8,7 @@ class ThresholdCallback(Callback):
         #self.log_name  = log_name
     
     def on_epoch_end(self, epoch, logs=None): 
-        val_loss = logs[val_loss]
+        val_loss = logs['val_loss']
         if val_loss <= self.threshold:
             self.model.stop_training = True
 
