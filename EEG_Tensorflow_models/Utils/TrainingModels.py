@@ -44,13 +44,13 @@ class train_model_cv():
         self.metrics = metrics
         self.callbacks = callbacks
         self.seed = seed
-        self.load_weights = load_weights
+        self.loss_weights = loss_weights
 
     
     def create_model(self):
         tf.keras.backend.clear_session()
         tf.random.set_seed(self.seed)
-        self.model.compile(loss=self.loss, optimizer= self.optimizer, metrics=self.metrics, loss_weights=self.load_weights)
+        self.model.compile(loss=self.loss, optimizer= self.optimizer, metrics=self.metrics, loss_weights=self.loss_weights)
     
     def fit_model(self,X,y,X_val,y_val,batch_size,epochs,verbose,callbacks,retrain=False):
         if retrain==False:
