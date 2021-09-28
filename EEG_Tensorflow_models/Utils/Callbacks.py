@@ -22,6 +22,6 @@ def get_callbacks(callbacks_names,call_args):
             callb = ModelCheckpoint(filepath=call_args[i]['filepath'],save_format=call_args[i]['save_format'], monitor=call_args[i]['monitor'],
                                     verbose=call_args[i]['verbose'],save_weights_only=call_args[i]['save_weights_only'],save_best_only=call_args[i]['save_best_only'])
         elif callbacks_names[j]=='Threshold':
-            callb = ThresholdCallback(threshold=call_args[i]['threshold'],log_name=call_args[i]['log_name'])
+            callb = ThresholdCallback(threshold=call_args[i]['threshold'])
         callbacks[j]=callb
     return callbacks
