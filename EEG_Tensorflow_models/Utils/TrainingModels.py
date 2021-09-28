@@ -134,7 +134,6 @@ class train_model_cv():
 
             if autoencoder:
                 y_train = [X,y_train]
-                y_ts    = [X_ts,y_ts]
 
             history2= self.fit_model(X,y_train,X_ts, y_ts,batch_size=batch_size,epochs=(stop_epoch+1)*2,verbose=verbose,callbacks=callbacks_names,retrain=True)
             History.append(history2)
