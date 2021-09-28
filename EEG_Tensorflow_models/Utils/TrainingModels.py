@@ -36,7 +36,7 @@ def get_loss(loss_name):
 
 
 class train_model_cv():
-    def __init__(self,model,optimizer,loss,metrics,callbacks=None, seed = 20200220):
+    def __init__(self,model,optimizer,loss,metrics,callbacks=None,loss_weights=None , seed = 20200220):
         super(train_model_cv,self).__init__()
         self.model = model
         self.optimizer = optimizer
@@ -44,11 +44,13 @@ class train_model_cv():
         self.metrics = metrics
         self.callbacks = callbacks
         self.seed = seed
+        self.load_weights = load_weights
+
     
     def create_model(self):
         tf.keras.backend.clear_session()
         tf.random.set_seed(self.seed)
-        self.model.compile(loss=self.loss, optimizer= self.optimizer, metrics=self.metrics)
+        self.model.compile(loss=self.loss, optimizer= self.optimizer, metrics=self.metrics, loss_weights=self.load_weights)
     
     def fit_model(self,X,y,X_val,y_val,batch_size,epochs,verbose,callbacks,retrain=False):
         if retrain==False:
