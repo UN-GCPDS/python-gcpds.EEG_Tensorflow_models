@@ -103,7 +103,7 @@ class train_model_cv():
                 self.preds = self.predict(X_val)[-1]
             else:
                 self.preds = self.predict(X_val)
-                
+
             self.y_true = y_val
         
         elif val_mode=='schirrmeister2017_legal':
@@ -113,6 +113,10 @@ class train_model_cv():
             y_ts= tf.keras.utils.to_categorical(y_ts,num_classes=num_classes)
 
             callbacks_names = [self.callbacks['early_stopping_train'],self.callbacks['checkpoint_train']]
+
+            if autoencoder:
+                y_tr = [X_tr,y_tr]
+                y_ts = [X_ts,y_ts]
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
             History.append(history1)
@@ -128,11 +132,19 @@ class train_model_cv():
 
             y_train= tf.keras.utils.to_categorical(y,num_classes=num_classes)
 
+            if autoencoder:
+                y_train = [X,y_train]
+                y_ts    = [X_ts,y_ts]
+
             history2= self.fit_model(X,y_train,X_ts, y_ts,batch_size=batch_size,epochs=(stop_epoch+1)*2,verbose=verbose,callbacks=callbacks_names,retrain=True)
             History.append(history2)
             self.model.load_weights(self.callbacks['checkpoint_valid'].filepath)
 
-            self.preds = self.predict(X_val)
+            if autoencoder:
+                self.preds = self.predict(X_val)[-1]
+            else:
+                self.preds = self.predict(X_val)
+
             self.y_true = y_val
         
         elif val_mode=='schirrmeister2021':
@@ -143,12 +155,20 @@ class train_model_cv():
             callbacks_names = [self.callbacks['checkpoint_valid'],
                                self.callbacks['early_stopping_valid']]
 
+            if autoencoder:
+                y_train = [X,y_train]
+                y_valid = [X_val,y_valid]
+
             history= self.fit_model(X,y_train,X_val, y_valid,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
             History.append(history)
 
             self.model.load_weights(self.callbacks['checkpoint_valid'].filepath)
 
-            self.preds = self.predict(X_val)
+            if autoencoder:
+                self.preds = self.predict(X_val)[-1]
+            else:
+                self.preds = self.predict(X_val)
+
             self.y_true = y_val
         
         elif val_mode=='lawhern2018':
@@ -173,13 +193,22 @@ class train_model_cv():
                 y_valid = tf.keras.utils.to_categorical(y_valid,num_classes=num_classes)
                 y_tr = tf.keras.utils.to_categorical(y_tr,num_classes=num_classes)
 
+                if autoencoder:
+                    y_tr    = [X_tr,y_tr]
+                    y_valid = [X_valid,y_valid]
+
                 #history= model.fit(X_tr,y_tr,validation_data=(X_val,y_val),batch_size=16,epochs=500,verbose=0,callbacks=[checkpointer],class_weight=class_weights)
                 history= self.fit_model(X_tr,y_tr,X_valid, y_valid,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
                 History.append(history)
 
                 self.model.load_weights(self.callbacks['checkpoint_train'+str(c+1)].filepath)
 
-                preds.append(self.model.predict(X_test))
+                if autoencoder:
+                    pred = self.predict(X_test)[-1]
+                else:
+                    pred = self.predict(X_test)
+
+                preds.append(pred)
                 y_preds = preds[c].argmax(axis = -1)
                 y_true.append(y_test)
                 acc.append(np.mean(y_preds == y_test))
