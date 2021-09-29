@@ -11,14 +11,12 @@ from tensorflow.keras.regularizers import l1_l2
 
 
 
-def DMTL_BCI(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5):
+def DMTL_BCI(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l2 = 0):
 
     filters      = (1,40)
     strid        = (1,15)
     pool         = (1,75)
     bias_spatial = True
-    l1           = 0
-    l2           = 1e-3
 
     input_main   = Input((Chans, Samples, 1))
     block1       = Conv2D(40, filters, strides=(1,2),
