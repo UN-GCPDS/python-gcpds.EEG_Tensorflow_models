@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
@@ -14,13 +14,21 @@ def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
 
 def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, dropoutRate = 0.5):
     if model_name=='DeepConvNet':
-        model = DeepConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate =model_args['dropoutRate'],version='2017')
+        model = DeepConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate =model_args['dropoutRate'],
+                            version='2017')
     elif model_name=='EEGNet':
-        model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType'])
+        model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], 
+                       kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], 
+                       dropoutType = model_args['dropoutType'])
     elif model_name=='ShallowConvNet':
-        model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],version = model_args['version'])
+        model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],
+                               version = model_args['version'])
     elif model_name=='DMTL_BCI':
         model = DMTL_BCI(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
+    elif model_name=='TCNet_fusion':
+        model = TCNet_fusion(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'],layers=model_args['layers'],
+                             kernel_s=model_args['kernel_s'],filt=model_args['filt'],dropout=model_args['dropout'],activation=model_args['activation'],F1=model_args['F1'],
+                             D=model_args['D'],kernLength=model_args['kernLength'],dropout_eeg=model_args['dropout_eeg'])
     return model
 
 def get_loss(loss_name):
