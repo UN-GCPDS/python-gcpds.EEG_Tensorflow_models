@@ -4,21 +4,45 @@ from braindecode.preprocessing.windowers import create_windows_from_events
 import numpy as np
 
 
+def name_to_numclasses(class_names):
+    classes = []
+    if class_names=='left hand':
+        classes.append(0)
+    elif class_names=='right hand':
+        classes.append(1)
+    elif class_names=='feet':
+        classes.append(2)
+    elif class_names=='tongue':
+        classes.append(3)
+    return classes
+
+def get_classes(X,y, class_names):
+    classes = name_to_numclasses(class_names)
+    X_c = []
+    y_c = []
+    for i in classes:
+        X_c.append(X[y==i,:,:,:])
+        y_c.append(y[y==i])
+    X_c = np.concatenate(X_c,axis=0)
+    y_c = np.concatenate(y_c,axis=0)
+    return X_c, y_c
+
+
 def get_epochs(dset):
-        y = []
-        X = []
-        for i in range(len(dset)):
-            y.append(dset[i][1])
-            X.append(np.expand_dims(dset[i][0],axis=[0,3]))
-        
-        y = np.asarray(y)
-        X = np.concatenate(X,axis=0)
-        return X,y
+    y = []
+    X = []
+    for i in range(len(dset)):
+        y.append(dset[i][1])
+        X.append(np.expand_dims(dset[i][0],axis=[0,3]))
+    
+    y = np.asarray(y)
+    X = np.concatenate(X,axis=0)
+    return X,y
 
 
 
 def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high_cut_hz = 38., trial_start_offset_seconds = -0.5,
-                 trial_stop_offset_seconds=0,Channels=None):
+                 trial_stop_offset_seconds=0,Channels=None,Classes = None):
 
     dataset = MOABBDataset(dataset_name=dataset_name, subject_ids=[subject_id])
 
@@ -69,5 +93,9 @@ def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high
 
     X_train,y_train = get_epochs(train_set)
     X_valid,y_valid = get_epochs(valid_set)
+
+    if Classes is not None:
+        X_train,y_train = get_classes(X_train,y_train, Classes)
+        X_valid,y_valid = get_classes(X_valid,y_valid, Classes)
 
     return X_train,y_train,X_valid,y_valid,sfreq
