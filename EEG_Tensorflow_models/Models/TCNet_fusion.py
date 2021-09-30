@@ -14,7 +14,7 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
     numFilters = F1
     F2= numFilters*D
     
-    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',data_format='channels_last',use_bias = False)(input2)
+    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',data_format='channels_last',use_bias = False)(input1)
     block1 = BatchNormalization(axis = -1)(block1)
     block2 = DepthwiseConv2D((1, Chans), use_bias = False, 
                                     depth_multiplier = D,
