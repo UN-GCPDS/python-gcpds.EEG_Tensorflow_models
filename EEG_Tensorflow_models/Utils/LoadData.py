@@ -18,6 +18,7 @@ def name_to_numclasses(class_names):
 
 def get_classes(X,y, class_names):
     classes = name_to_numclasses(class_names)
+    print(classes)
     X_c = []
     y_c = []
     for i in classes:
