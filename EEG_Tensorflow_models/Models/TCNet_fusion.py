@@ -21,7 +21,7 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
                                     depth_multiplier = D,
                                     data_format='channels_last',
                                     depthwise_constraint = max_norm(1.))(block1)
-    block2 = BatchNormalization(axis = -1)(block2_22)
+    block2 = BatchNormalization(axis = -1)(block2)
     block2 = Activation('elu')(block2)
     block2 = AveragePooling2D((8,1),data_format='channels_last')(block2)
     block2 = Dropout(dropout)(block2)
