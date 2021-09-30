@@ -18,7 +18,7 @@ def get_epochs(dset):
 
 
 def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high_cut_hz = 38., trial_start_offset_seconds = -0.5,
-                 trial_stop_offset_seconds=0):
+                 trial_stop_offset_seconds=0,Channels=None):
 
     dataset = MOABBDataset(dataset_name=dataset_name, subject_ids=[subject_id])
 
@@ -26,13 +26,23 @@ def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high
     factor_new = 1e-3
     init_block_size = 1000
 
-    preprocessors = [
-        Preprocessor('pick_types', eeg=True, meg=False, stim=False),  # Keep EEG sensors
-        Preprocessor(scale, factor=1e6, apply_on_array=True),  # Convert from V to uV
-        Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter
-        Preprocessor(exponential_moving_standardize,  # Exponential moving standardization
-                    factor_new=factor_new, init_block_size=init_block_size)
-    ]
+    if Channels == None:
+        preprocessors = [
+            Preprocessor('pick_types', eeg=True, meg=False, stim=False),  # Keep EEG sensors
+            Preprocessor(scale, factor=1e6, apply_on_array=True),  # Convert from V to uV
+            Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter
+            Preprocessor(exponential_moving_standardize,  # Exponential moving standardization
+                        factor_new=factor_new, init_block_size=init_block_size)
+        ]
+    else:
+        preprocessors = [
+            Preprocessor('pick_types', eeg=True, meg=False, stim=False),  # Keep EEG sensors
+            Preprocessor('pick_channels',ch_names=Channels)
+            Preprocessor(scale, factor=1e6, apply_on_array=True),  # Convert from V to uV
+            Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter
+            Preprocessor(exponential_moving_standardize,  # Exponential moving standardization
+                        factor_new=factor_new, init_block_size=init_block_size)
+        ]
 
     # Transform the data
     preprocess(dataset, preprocessors)
