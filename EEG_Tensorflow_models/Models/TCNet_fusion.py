@@ -2,7 +2,7 @@ from .TF_blocks import TCN_block
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Activation
 from tensorflow.keras.layers import Conv1D,Conv2D, AveragePooling2D,SeparableConv2D
-from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization, concatenate, Flatten
 from tensorflow.keras.layers import Dropout, Add, Lambda,DepthwiseConv2D,Input, Permute
 from tensorflow.keras.constraints import max_norm
 
