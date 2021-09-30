@@ -6,7 +6,7 @@ import numpy as np
 
 def name_to_numclasses(class_names):
     classes = []
-    for i in class_names
+    for i in class_names:
         if i=='left hand':
             classes.append(0)
         elif i=='right hand':
