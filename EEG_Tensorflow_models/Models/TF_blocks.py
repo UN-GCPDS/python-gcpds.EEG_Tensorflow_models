@@ -1,43 +1,41 @@
-import tensorflow as tf
+from keras.models import Model
+from keras.layers.core import Dense, Activation
+from keras.layers.convolutional import Conv1D,Conv2D, AveragePooling2D,SeparableConv2D
+from keras.layers.normalization import BatchNormalization
+from keras.layers import Dropout, Add, Lambda,DepthwiseConv2D,Input, Permute
+from tensorflow.keras.constraints import max_norm
 
 
-class TCN_residualblock(tf.keras.layers.Layer):
-    def __init__(self, Ft,Kt,Dt,resconv=False,data_format='channels_first',dilation_rate=1,
-                trainable=True, name=None, dtype=None, 
-                 activity_regularizer=None, **kwargs):
-        super(TCNresidualblock, self).__init__(
-            trainable=trainable, dtype=dtype,
-            activity_regularizer=activity_regularizer,
-            name=name, **kwargs
-        )
-        self.resconv = resconv   
-        self.convolution0_1 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate,data_format=data_format)
-        self.convolution0_2 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate*2,data_format=data_format)
-        self.convolution0_3 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate*4,data_format=data_format)
-        self.BatchNorm0 = tf.keras.layers.BatchNormalization()
-        self.relu0 = tf.keras.layers.ELU()
-        self.dropout0 = tf.keras.layers.Dropout(rate=Dt)
-
-        self.convolution1_1 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate,data_format=data_format)
-        self.convolution1_2 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate*2,data_format=data_format)
-        self.convolution1_3 = tf.keras.layers.Conv1D(Ft, kernel_size=Kt, strides=1, padding='causal', dilation_rate=dilation_rate*4,data_format=data_format)
-        self.BatchNorm1 = tf.keras.layers.BatchNormalization()
-        self.relu1 = tf.keras.layers.ELU()
-        self.dropout1 = tf.keras.layers.Dropout(rate=Dt)
-        self.residual = tf.keras.layers.Conv1D(1, kernel_size=1, padding='same')
-    def call(self,inputs, training=True):
-        x = self.convolution0_1(inputs)
-        x = self.convolution0_2(x)
-        x = self.convolution0_3(x)
-        x = self.BatchNorm0(x)
-        x = self.relu0(x)
-        x = self.dropout0(x, training=training)
-        x = self.convolution1_1(x)
-        x = self.convolution1_2(x)
-        x = self.convolution1_3(x)
-        x = self.BatchNorm1(x)
-        x = self.relu1(x)
-        x = self.dropout1(x, training=training)
-        if self.resconv:
-            inputs = self.residual(inputs)
-        return x + inputs
+def TCN_block(input_layer,input_dimension,depth,kernel_size,filters,dropout,activation='relu'):
+    block = Conv1D(filters,kernel_size=kernel_size,dilation_rate=1,activation='linear',
+                   padding = 'causal',kernel_initializer='he_uniform')(input_layer)
+    block = BatchNormalization()(block)
+    block = Activation(activation)(block)
+    block = Dropout(dropout)(block)
+    block = Conv1D(filters,kernel_size=kernel_size,dilation_rate=1,activation='linear',
+                   padding = 'causal',kernel_initializer='he_uniform')(block)
+    block = BatchNormalization()(block)
+    block = Activation(activation)(block)
+    block = Dropout(dropout)(block)
+    if(input_dimension != filters):
+        conv = Conv1D(filters,kernel_size=1,padding='same')(input_layer)
+        added = Add()([block,conv])
+    else:
+        added = Add()([block,input_layer])
+    out = Activation(activation)(added)
+    
+    for i in range(depth-1):
+        block = Conv1D(filters,kernel_size=kernel_size,dilation_rate=2**(i+1),activation='linear',
+                   padding = 'causal',kernel_initializer='he_uniform')(out)
+        block = BatchNormalization()(block)
+        block = Activation(activation)(block)
+        block = Dropout(dropout)(block)
+        block = Conv1D(filters,kernel_size=kernel_size,dilation_rate=2**(i+1),activation='linear',
+                   padding = 'causal',kernel_initializer='he_uniform')(block)
+        block = BatchNormalization()(block)
+        block = Activation(activation)(block)
+        block = Dropout(dropout)(block)
+        added = Add()([block, out])
+        out = Activation(activation)(added)
+        
+    return out
