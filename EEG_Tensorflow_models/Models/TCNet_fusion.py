@@ -10,11 +10,12 @@ from tensorflow.keras.constraints import max_norm
 def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10, dropout=0, activation='relu', F1=4, D=2, kernLength=64, dropout_eeg=0.1):
     
     input1 = Input((Chans, Samples, 1),name='Input')
+    input2 = Permute((2,1,3))(input1)
     regRate=.25
     numFilters = F1
     F2= numFilters*D
     
-    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',data_format='channels_last',use_bias = False)(input1)
+    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',data_format='channels_last',use_bias = False)(input2)
     block1 = BatchNormalization(axis = -1)(block1)
     block2 = DepthwiseConv2D((1, Chans), use_bias = False, 
                                     depth_multiplier = D,
