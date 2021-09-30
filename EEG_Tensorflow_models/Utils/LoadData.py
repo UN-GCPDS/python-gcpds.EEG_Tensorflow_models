@@ -6,19 +6,19 @@ import numpy as np
 
 def name_to_numclasses(class_names):
     classes = []
-    if class_names=='left hand':
-        classes.append(0)
-    elif class_names=='right hand':
-        classes.append(1)
-    elif class_names=='feet':
-        classes.append(2)
-    elif class_names=='tongue':
-        classes.append(3)
+    for i in class_names
+        if i=='left hand':
+            classes.append(0)
+        elif i=='right hand':
+            classes.append(1)
+        elif i=='feet':
+            classes.append(2)
+        elif i=='tongue':
+            classes.append(3)
     return classes
 
 def get_classes(X,y, class_names):
     classes = name_to_numclasses(class_names)
-    print(classes)
     X_c = []
     y_c = []
     for i in classes:
