@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
@@ -29,6 +29,9 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
         model = TCNet_fusion(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'],layers=model_args['layers'],
                              kernel_s=model_args['kernel_s'],filt=model_args['filt'],dropout=model_args['dropout'],activation=model_args['activation'],F1=model_args['F1'],
                              D=model_args['D'],kernLength=model_args['kernLength'],dropout_eeg=model_args['dropout_eeg'])
+    elif model_name == 'PST_attention':
+        model = PST_attention(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],\
+                              last_layer = model_args['last_layer'])
     return model
 
 def get_loss(loss_name):
