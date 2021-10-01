@@ -6,6 +6,7 @@ from tensorflow.keras.layers import Dropout, Add, Lambda,DepthwiseConv2D,Input, 
 from tensorflow.keras.constraints import max_norm
 from tensorflow import Variable
 from tensorflow.keras import backend as K
+import tensorflow as tf
 
 
 def TCN_block(input_layer,input_dimension,depth,kernel_size,filters,dropout,activation='relu'):
