@@ -5,6 +5,7 @@ from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Dropout, Add, Lambda,DepthwiseConv2D,Input, Permute, Reshape
 from tensorflow.keras.constraints import max_norm
 from tensorflow import Variable
+from tensorflow.keras import backend as K
 
 
 def TCN_block(input_layer,input_dimension,depth,kernel_size,filters,dropout,activation='relu'):
@@ -67,7 +68,7 @@ class Channel_attention(Model):
 
         return out
 
-class Time_attention(tf.keras.Model):
+class Time_attention(Model):
     def __init__(self,num_t):
         super(Time_attention,self).__init__(name='')
         self.conv1      = Conv2D(filters=8,kernel_size=(1,1),kernel_constraint = max_norm(2., axis=(0,1,2)))
@@ -95,7 +96,7 @@ class Time_attention(tf.keras.Model):
 
         return out
 
-class Attention(tf.keras.Model):
+class Attention(Model):
     def __init__(self,num_ch,num_t):
         super(Attention,self).__init__()
         self.CA = Channel_attention(num_ch=num_ch)
