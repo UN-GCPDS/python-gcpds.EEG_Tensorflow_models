@@ -36,7 +36,7 @@ def DMTL_BCI(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l
     block2       = Resizing(Act1.shape[1], Act1.shape[2])(block1)
     block2       = Conv2DTranspose(40, (Chans, 1), use_bias=bias_spatial, kernel_regularizer=l1_l2(l1=l1,l2=l2),
                           kernel_constraint = max_norm(2., axis=(0,1,2)))(block2)
-    block2       = Conv2DTranspose(40, filters,strides=(1,2),
+    block2       = Conv2DTranspose(1, filters,strides=(1,2),
                                  input_shape=(Chans, Samples, 1),kernel_regularizer=l1_l2(l1=l1,l2=l2),
                                  kernel_constraint = max_norm(2., axis=(0,1,2)))(block2)
     
