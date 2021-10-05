@@ -43,6 +43,8 @@ def get_loss(loss_name):
             loss.append(tf.keras.losses.CategoricalCrossentropy())
         elif i == 'mse':
             loss.append(tf.keras.losses.MeanSquaredError())
+        else:
+            loss.append(i)
     return loss
 
 
