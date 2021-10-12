@@ -32,6 +32,8 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
     elif model_name == 'PST_attention':
         model = PST_attention(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],\
                               last_layer = model_args['last_layer'])
+    elif model_name == 'MTVAE':
+        model = MTVAE(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
     return model
 
 def get_loss(loss_name):
