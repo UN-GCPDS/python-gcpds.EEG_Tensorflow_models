@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
@@ -34,6 +34,8 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
                               last_layer = model_args['last_layer'])
     elif model_name == 'MTVAE':
         model = MTVAE(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
+    elif model_name == 'Shallownet_1conv2d':
+        model = Shallownet_1conv2d(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
     return model
 
 def get_loss(loss_name):
