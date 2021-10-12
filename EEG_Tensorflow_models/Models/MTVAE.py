@@ -17,7 +17,7 @@ class reparametrize(tf.keras.layers.Layer):
         sigma = tf.math.exp(log_var / 2)
         return  mean + sigma * eta
 
-def VAE_DMTL_BCI(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l2 = 0):
+def MTVAE(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l2 = 0):
 
     filters      = (1,40)
     strid        = (1,15)
