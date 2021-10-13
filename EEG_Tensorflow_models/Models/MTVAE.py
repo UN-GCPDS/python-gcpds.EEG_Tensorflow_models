@@ -39,7 +39,7 @@ def MTVAE(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l2 =
     log_var      = Dense(40,name='log_var')(block1)
     codings      = reparametrize(name='Code')([mu, log_var])
 
-    ConvC        = Conv2D(nb_classes, (1, block1.shape[2]),kernel_regularizer=l1_l2(l1=l1,l2=l2),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block1)
+    ConvC        = Conv2D(nb_classes, (1, block1.shape[2]),kernel_regularizer=l1_l2(l1=l1,l2=l2),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(codings)
     flat          = Flatten(name='F_1')(ConvC)
     softmax      = Activation('softmax',name='Classif')(flat)
 
