@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Activation, Dropout,Concatenate
+from tensorflow.keras.layers import Dense, Activation, Dropout
 from tensorflow.keras.layers import Conv2D, AveragePooling2D,Conv2DTranspose
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Input, Flatten, Reshape
@@ -8,6 +8,7 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.layers.experimental.preprocessing import Resizing
 from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.regularizers import l1_l2
+import tensorflow as tf
 
 class reparametrize(tf.keras.layers.Layer):
     def call(self, inputs):
