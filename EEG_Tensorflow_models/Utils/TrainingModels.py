@@ -83,7 +83,7 @@ class train_model_cv():
         preds = self.model.predict(X)
         return preds
 
-    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False):
+    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False,early_stopping=False):
         History = []
         num_classes = len(np.unique(y))
         if val_mode=='schirrmeister2017':
@@ -210,7 +210,11 @@ class train_model_cv():
                 X_tr, X_valid, y_tr, y_valid = train_test_split(X_train, y_train, test_size=0.3, random_state=self.seed)
 
                 #checkpointer = tf.keras.callbacks.ModelCheckpoint(filepath='/tmp/checkpoint.h5', verbose=0,save_best_only=True)
-                callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)]]
+                #callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)]]
+                if early_stopping:
+                    callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)],self.callbacks['early_stopping_train'+str(c+1)]]
+                else:
+                    callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)]]
 
                 y_valid = tf.keras.utils.to_categorical(y_valid,num_classes=num_classes)
                 y_tr = tf.keras.utils.to_categorical(y_tr,num_classes=num_classes)
