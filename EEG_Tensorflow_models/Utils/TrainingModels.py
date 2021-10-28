@@ -212,7 +212,7 @@ class train_model_cv():
                 #checkpointer = tf.keras.callbacks.ModelCheckpoint(filepath='/tmp/checkpoint.h5', verbose=0,save_best_only=True)
                 #callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)]]
                 if early_stopping:
-                    callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)],self.callbacks['early_stopping_train'+str(c+1)]]
+                    callbacks_names = [self.callbacks['early_stopping_train'+str(c+1)],self.callbacks['checkpoint_train'+str(c+1)]]
                 else:
                     callbacks_names = [self.callbacks['checkpoint_train'+str(c+1)]]
 
