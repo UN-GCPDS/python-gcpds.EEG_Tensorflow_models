@@ -15,6 +15,7 @@ Deep learning models applied to EEG signals on tensorflow 2.x
 * [PST-Attention:](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7759669/) Parallel Spatial–Temporal Self-Attention CNN-Based Motor Imagery Classification for BCI.
 * [TCNet-Fusion:](https://www.sciencedirect.com/science/article/pii/S1746809421004237?casa_token=XsRO0Coq4m0AAAAA:bWrqLHTs8OyrMbQABAAe4wBw1JOOZQtSYmcBoDl9_qzubD2hOVzKwmSVZkqkNkXmskamLPs4sJo) Electroencephalography-based motor imagery classification using temporal convolutional network fusion.
 
-
-
-
+## Proposed approaches
+* [MTVAE:](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/mtvae.ipynb) Multi-task variational autoencoder.
+* [ShallowConvNet_1Conv2d: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallowconvnet_version1conv2d.ipynb). Variation of ShallowConvNet with only a convolutional 2D layer.
+* [ShallowConvNet_1Conv2d_rff: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallownet_1conv2d_rff_conv2d.ipynb): Variation of ShallowConvNet_1Conv2D using Random Fourier Features layer.
