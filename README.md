@@ -22,7 +22,7 @@ Deep learning models applied to EEG signals on tensorflow 2.x
 * [Deep&Wide Learning using Gradient Class Activation Maps for Enhanced Physiological Interpretability of Motor Imagery Skills](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/tree/main/Experimental/DW_LCAM/)
 * [CNN_DW_ITL](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Experimental/CNN_DW_ITL/Cuaderno_Gauss_y_CSP%2BCWT.ipynb)
 
-### Install
+## Install
 
 1. Clone this repo.
 
