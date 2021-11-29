@@ -17,5 +17,6 @@ Deep learning models applied to EEG signals on tensorflow 2.x
 
 ## Proposed approaches
 * [MTVAE:](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/mtvae.ipynb) Multi-task variational autoencoder.
-* [ShallowConvNet_1Conv2d: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallowconvnet_version1conv2d.ipynb). Variation of ShallowConvNet with only a convolutional 2D layer.
+* [ShallowConvNet_1Conv2d: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallowconvnet_version1conv2d.ipynb) Variation of ShallowConvNet with only a convolutional 2D layer.
 * [ShallowConvNet_1Conv2d_rff: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallownet_1conv2d_rff_conv2d.ipynb): Variation of ShallowConvNet_1Conv2D using Random Fourier Features layer.
+* [Deep&Wide Learning using Gradient Class Activation Maps for Enhanced Physiological Interpretability of Motor Imagery Skills]
