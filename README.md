@@ -21,3 +21,17 @@ Deep learning models applied to EEG signals on tensorflow 2.x
 * [ShallowConvNet_1Conv2d_rff: ](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Examples/BCI2a/shallownet_1conv2d_rff_conv2d.ipynb): Variation of ShallowConvNet_1Conv2D using Random Fourier Features layer.
 * [Deep&Wide Learning using Gradient Class Activation Maps for Enhanced Physiological Interpretability of Motor Imagery Skills](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/tree/main/Experimental/DW_LCAM/)
 * [CNN_DW_ITL](https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Experimental/CNN_DW_ITL/Cuaderno_Gauss_y_CSP%2BCWT.ipynb)
+
+### Install
+
+1. Clone this repo.
+
+```
+git clone https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models
+```
+
+2. Install repo.
+
+```
+pip install -U git+https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models.git >/dev/null
+```
