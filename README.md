@@ -39,7 +39,7 @@ pip install -U git+https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_model
 ## Results
 
 - BCI2a:
-  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc.jpg" width="100%">
+  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc.jpg" width="70%">
   
 - GIGA17:
-  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc_giga.jpg" width="100%">
+  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc_giga.jpg" width="70%">
