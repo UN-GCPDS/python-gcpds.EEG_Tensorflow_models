@@ -35,3 +35,11 @@ git clone https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models
 ```
 pip install -U git+https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models.git >/dev/null
 ```
+
+## Results
+
+- BCI2a:
+  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc.jpg" width="100%">
+  
+- GIGA17:
+  <img src="https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models/blob/main/Results/comparing_mean_acc_giga.jpg" width="100%">
