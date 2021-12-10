@@ -12,8 +12,6 @@ from tensorflow.keras.regularizers import l1_l2
 
 
 def Shallownet_1conv2d(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 = 0, l2 = 0):
-
-    filters      = (1,40)
     kernel_time  = 40
     strid        = (1,15)
     pool         = (1,75)
