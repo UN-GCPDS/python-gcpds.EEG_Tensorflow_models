@@ -105,5 +105,5 @@ def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high
     if Classes is not None:
         X_train,y_train = get_classes(X_train,y_train, Classes)
         X_valid,y_valid = get_classes(X_valid,y_valid, Classes)
-
-    return X_train,y_train,X_valid,y_valid,sfreq,dataset
+    info = dataset.datasets[0].raw.info
+    return X_train,y_train,X_valid,y_valid,sfreq,info
