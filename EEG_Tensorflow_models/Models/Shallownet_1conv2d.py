@@ -26,6 +26,6 @@ def Shallownet_1conv2d(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5,
     block1       = AveragePooling2D(pool_size=pool, strides=strid)(Act1)
     block1       = Dropout(dropoutRate,name='bottleneck')(block1)
     ConvC        = Conv2D(nb_classes, (1, block1.shape[2]),kernel_regularizer=l1_l2(l1=l1,l2=l2),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block1)
-    flat         = Flatten(name='F_1')(ConvC)
-    softmax      = Activation('softmax',name='Classif')(flat)
+    flat         = Flatten(name='output')(ConvC)
+    softmax      = Activation('softmax',name='out_activation')(flat)
     return Model(inputs=input_main, outputs=softmax)
