@@ -15,9 +15,12 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
     numFilters = F1
     F2= numFilters*D
     
-    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',data_format='channels_last',use_bias = False)(input2)
+    block1 = Conv2D(F1, (kernLength, 1), padding = 'same',
+                            name='Conv2D_1',
+                            data_format='channels_last',use_bias = False)(input2)
     block1 = BatchNormalization(axis = -1)(block1)
     block2 = DepthwiseConv2D((1, Chans), use_bias = False, 
+                                    name='Depth_wise_Conv2D_1',
                                     depth_multiplier = D,
                                     data_format='channels_last',
                                     depthwise_constraint = max_norm(1.))(block1)
@@ -26,6 +29,7 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
     block2 = AveragePooling2D((8,1),data_format='channels_last')(block2)
     block2 = Dropout(dropout)(block2)
     block3 = SeparableConv2D(F2, (16, 1),
+                            name='Separable_Conv2D_1',
                             data_format='channels_last',
                             use_bias = False, padding = 'same')(block2)
     block3 = BatchNormalization(axis = -1)(block3)
@@ -38,6 +42,6 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
     FC1=Flatten()(block2)
     FC2=Flatten()(CON1)
     CON1 = concatenate([FC1,FC2])
-    dense        = Dense(nb_classes, name = 'dense',kernel_constraint = max_norm(regRate))(CON1)
-    softmax      = Activation('softmax', name = 'softmax')(dense)
+    dense        = Dense(nb_classes, name = 'output',kernel_constraint = max_norm(regRate))(CON1)
+    softmax      = Activation('softmax', name = 'out_activation')(dense)
     return Model(inputs=input1, outputs=softmax)

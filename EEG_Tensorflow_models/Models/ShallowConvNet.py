@@ -52,8 +52,10 @@ def ShallowConvNet(nb_classes, Chans = 64, Samples = 128, dropoutRate = 0.5,vers
     input_main   = Input((Chans, Samples, 1))
     block1       = Conv2D(40, filters, 
                                  input_shape=(Chans, Samples, 1),
+                                 name='Conv2D_1',
                                  kernel_constraint = max_norm(2., axis=(0,1,2)))(input_main)
     block1       = Conv2D(40, (Chans, 1), use_bias=bias_spatial, 
+                          name='Conv2D_2',
                           kernel_constraint = max_norm(2., axis=(0,1,2)))(block1)
     block1       = BatchNormalization(epsilon=1e-05, momentum=0.1)(block1)
     block1       = Activation(square)(block1)
@@ -61,8 +63,8 @@ def ShallowConvNet(nb_classes, Chans = 64, Samples = 128, dropoutRate = 0.5,vers
     block1       = Activation(log)(block1)
     block1       = Dropout(dropoutRate)(block1)
     flatten      = Flatten()(block1)
-    dense        = Dense(nb_classes, kernel_constraint = max_norm(0.5))(flatten)
-    softmax      = Activation('softmax')(dense)
+    dense        = Dense(nb_classes, kernel_constraint = max_norm(0.5),name='output')(flatten)
+    softmax      = Activation('softmax',name='out_activation')(dense)
     
     return Model(inputs=input_main, outputs=softmax)
     

@@ -27,6 +27,7 @@ def MTVAE_1conv2d(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 =
 
     input_main   = Input((Chans, Samples, 1))
     block1       = Conv2D(40, (Chans, kernel_time),strides=(1,2), use_bias=bias_spatial, kernel_regularizer=l1_l2(l1=l1,l2=l2),
+                          name='Conv2D_1',
                           kernel_constraint = max_norm(2., axis=(0,1,2)))(input_main)
     block1       = BatchNormalization(epsilon=1e-05, momentum=0.1)(block1)
     Act1         = Activation('elu')(block1)
@@ -38,8 +39,8 @@ def MTVAE_1conv2d(nb_classes, Chans = 22, Samples = 250, dropoutRate = 0.5, l1 =
     codings      = reparametrize(name='Code')([mu, log_var])
 
     ConvC        = Conv2D(nb_classes, (1, block1.shape[2]),kernel_regularizer=l1_l2(l1=l1,l2=l2),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block1)
-    flat         = Flatten(name='F_1')(ConvC)
-    softmax      = Activation('softmax',name='Classif')(flat)
+    flat         = Flatten(name='output')(ConvC)
+    softmax      = Activation('softmax',name='out_activation')(flat)
 
     block2       = Conv2DTranspose(40, pool,strides=strid,activation='linear', kernel_regularizer=l1_l2(l1=l1,l2=l2),
                           kernel_constraint = max_norm(2., axis=(0,1,2)))(codings)

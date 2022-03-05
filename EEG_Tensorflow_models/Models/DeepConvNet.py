@@ -82,11 +82,11 @@ def DeepConvNet(nb_classes, Chans = 64, Samples = 256,
     if version=='2017'or last_layer=='Conv':
         ConvC        = Conv2D(nb_classes, (1, block4.shape[2]),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block4)
         flat          = Flatten(name='F_1')(ConvC)
-        softmax      = Activation('softmax',name='A_out')(flat)
+        softmax      = Activation('softmax',name='out_activation')(flat)
 
     elif version=='2018' or last_layer=='Dense':
         flatten      = Flatten(name='F_1')(block4)
         dense        = Dense(nb_classes, kernel_constraint = max_norm(0.5),name='output')(flatten)
-        softmax      = Activation('softmax',name='A_out')(dense)
+        softmax      = Activation('softmax',name='out_activation')(dense)
     
     return Model(inputs=input_main, outputs=softmax)

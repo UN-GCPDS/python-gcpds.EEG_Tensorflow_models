@@ -79,10 +79,12 @@ def EEGNet(nb_classes, Chans = 64, Samples = 128,
 
     ##################################################################
     block1       = Conv2D(F1, (1, kernLength), padding = 'same',
+                                   name='Conv2D_1',
                                    input_shape = (Chans, Samples, 1),
                                    use_bias = False)(input1)
     block1       = BatchNormalization()(block1)
     block1       = DepthwiseConv2D((Chans, 1), use_bias = False, 
+                                   name='Depth_wise_Conv2D_1',
                                    depth_multiplier = D,
                                    depthwise_constraint = max_norm(1.))(block1)
     block1       = BatchNormalization()(block1)
@@ -91,6 +93,7 @@ def EEGNet(nb_classes, Chans = 64, Samples = 128,
     block1       = dropoutType(dropoutRate)(block1)
     
     block2       = SeparableConv2D(F2, (1, 16),
+                                   name='Separable_Conv2D_1',
                                    use_bias = False, padding = 'same')(block1)
     block2       = BatchNormalization()(block2)
     block2       = Activation('elu')(block2)
@@ -99,8 +102,8 @@ def EEGNet(nb_classes, Chans = 64, Samples = 128,
         
     flatten      = Flatten(name = 'flatten')(block2)
     
-    dense        = Dense(nb_classes, name = 'dense', 
+    dense        = Dense(nb_classes, name = 'output', 
                          kernel_constraint = max_norm(norm_rate))(flatten)
-    softmax      = Activation('softmax', name = 'softmax')(dense)
+    softmax      = Activation('softmax', name = 'out_activation')(dense)
     
     return Model(inputs=input1, outputs=softmax)

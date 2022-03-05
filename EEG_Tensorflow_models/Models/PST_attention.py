@@ -20,10 +20,12 @@ def PST_attention(nb_classes=4, Chans = 22, Samples = 128, dropoutRate = 0.5,las
 
     input_main   = Input((Chans, Samples, 1))
     block1       = Attention(num_ch=Chans,num_t=Samples)(input_main)
-    block1       = Conv2D(40, filters, 
+    block1       = Conv2D(40, filters,
+                                 name='Conv2D_1',
                                  input_shape=(Chans, Samples, 1),
                                  kernel_constraint = max_norm(2., axis=(0,1,2)))(block1)
     block1       = Conv2D(40, (Chans, 1), use_bias=bias_spatial, 
+                          name='Conv2D_2',
                           kernel_constraint = max_norm(2., axis=(0,1,2)))(block1)
     block1       = BatchNormalization(epsilon=1e-05, momentum=0.1)(block1)
     block1       = Activation(square)(block1)
@@ -32,14 +34,14 @@ def PST_attention(nb_classes=4, Chans = 22, Samples = 128, dropoutRate = 0.5,las
     block1       = Dropout(dropoutRate)(block1)
 
     if last_layer=='Conv':
-        ConvC    = Conv2D(nb_classes, (1, block1.shape[2]),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='ouput')(block1)
-        flat     = Flatten(name='F_1')(ConvC)
-        softmax  = Activation('softmax',name='A_out')(flat)
+        ConvC    = Conv2D(nb_classes, (1, block1.shape[2]),kernel_constraint = max_norm(0.5, axis=(0,1,2)),name='conv_ouput')(block1)
+        flat     = Flatten(name='output')(ConvC)
+        softmax  = Activation('softmax',name='out_activation')(flat)
 
     elif last_layer=='Dense':
         flatten  = Flatten(name='F_1')(block1)
         dense    = Dense(nb_classes, kernel_constraint = max_norm(0.5),name='output')(flatten)
-        softmax  = Activation('softmax',name='A_out')(dense)
+        softmax  = Activation('softmax',name='out_activation')(dense)
 
     
     return Model(inputs=input_main, outputs=softmax)
