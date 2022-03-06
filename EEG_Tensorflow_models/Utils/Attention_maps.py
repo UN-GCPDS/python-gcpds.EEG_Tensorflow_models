@@ -253,5 +253,5 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None
     r2 = np.asarray(np.split(r,time,axis=-1))
     # moving  [time(3),ch(2),1(0),layers(4),classes(1)] to [1,classes,ch,time,layers]
     r3=np.moveaxis(r2,[0,1,2,3,4],[3,2,0,4,1])
-    tmpr_ = function_combination(tmpr_,axis=-1)
+    tmpr_ = function_combination(r3,axis=-1)
   return relM_,tmpr_
