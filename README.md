@@ -34,7 +34,7 @@ git clone https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models
 2. Install repo.
 
 ```
-pip install -U git+https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models.git >/dev/null
+pip install -e git+https://github.com/UN-GCPDS/python-gcpds.EEG_Tensorflow_models.git#egg=EEG_Tensorflow_models
 ```
 
 ## Results

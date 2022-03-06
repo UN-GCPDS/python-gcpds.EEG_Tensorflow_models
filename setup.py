@@ -26,7 +26,7 @@ setup(
                       'tensorflow-addons',
                       #'moabb>=0.4.2',
                       #'skorch',
-                      #'mne>=0.23.3',
+                      'mne>=0.23.3',
                       ],
 
     include_package_data=True,
