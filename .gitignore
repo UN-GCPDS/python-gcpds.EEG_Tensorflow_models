@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# do not include Results to the repo
+*.p
+
+# tmp folder which temporal models are stored
+tmp/
+
 # Distribution / packaging
 .Python
 build/

@@ -11,6 +11,8 @@ from tf_keras_vis.scorecam import Scorecam
 from tf_keras_vis.gradcam_plus_plus import GradcamPlusPlus
 from sklearn.metrics import pairwise_distances
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import itertools
+import re
 #--------------------##--------------------------------------
 
 
@@ -219,10 +221,19 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
 
     return relM,tmpr
 
-def Attention_maps(rel_model_name,layer_name,model,X,y,**kwargs):
+def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None,**kwargs):
   #rel_model_name = #Gradcam, Gradcam++, Saliency, Scorecam
-  #layer_name = layer name in the model.
-  #model =  TF model
+  #layer_name = layer name in the model, must be a list of strings. If string it will be loaded as regular expresion
+  #model =  TF model\
+
+  # get all layer names
+  model_layer_names=list(map(lambda x: x.name,model.layers))
+  #if layer_name is str, it is considered as a regular expresion
+  if type(layer_name)==str:
+    layer_name = re.findall(layer_name," ".join(model_layer_names),re.I)
+  else:
+    exits_layers = [not layer in model_layer_names for layer in layer_name]
+    assert not any(exits_layers), 'layers {} does not exist'.format(list(itertools.compress(layer_name,exits_layers)))
   # X = train samples
   # y = train labels
   relM_ = [None]*len(rel_model_name) #relM[m] -> number classes x input image resolution x number of layers 
@@ -231,4 +242,16 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,**kwargs):
       relM_[m],tmpr_[m] = attention_wide(model,rel_model_name[m],layer_name,
                                         X,y,kwargs)
   #norm_c=False,norm_max_min=False,plot_int=False,transpose=False)
+  if function_combination:
+    # get time and ch length
+    time = X_train.shape[2]
+    ch = X_train.shape[1]
+    # apply function combination over relM_, last index refers to layers
+    relM_ = function_combination(relM_,axis=-1)
+    # rearrange tmpr_ from [1,ch*layers,time*classes] to [1,classes,ch,time,layers]
+    r= np.asarray(np.split(np.asarray(tmpr_),ch,axis=1))
+    r2 = np.asarray(np.split(r,time,axis=-1))
+    # moving  [time(3),ch(2),1(0),layers(4),classes(1)] to [1,classes,ch,time,layers]
+    r3=np.moveaxis(r2,[0,1,2,3,4],[3,2,0,4,1])
+    tmpr_ = function_combination(tmpr_,axis=-1)
   return relM_,tmpr_

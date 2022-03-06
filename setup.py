@@ -20,12 +20,9 @@ setup(
 
     install_requires=['braindecode @ git+https://github.com/braindecode/braindecode',
                       'moabb @ git+https://github.com/UN-GCPDS/moabb.git',
-                      #'numpy',
-                      #'scipy>=1.4.0',
-                      #'matplotlib',
                       'tensorflow-addons',
-                      #'moabb>=0.4.2',
-                      #'skorch',
+                      'tensorflow>=2.8',
+                      'tf-keras-vis',
                       'mne==0.23.3',
                       ],
 
