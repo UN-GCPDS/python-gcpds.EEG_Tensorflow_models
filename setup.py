@@ -18,8 +18,7 @@ setup(
 
     download_url='',
 
-    install_requires=['mne>=0.23.3',
-                      'braindecode @ git+https://github.com/braindecode/braindecode',
+    install_requires=['braindecode @ git+https://github.com/braindecode/braindecode',
                       'moabb @ git+https://github.com/UN-GCPDS/moabb.git',
                       #'numpy',
                       #'scipy>=1.4.0',
@@ -27,6 +26,7 @@ setup(
                       'tensorflow-addons',
                       #'moabb>=0.4.2',
                       #'skorch',
+                      'mne>=0.23.3',
                       ],
 
     include_package_data=True,
