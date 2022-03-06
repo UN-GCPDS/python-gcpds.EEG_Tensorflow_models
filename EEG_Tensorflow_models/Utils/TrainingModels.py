@@ -98,7 +98,8 @@ class train_model_cv():
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
 
-            history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
+            history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
+                                        verbose=verbose,callbacks=callbacks_names)
             History.append(history1)
             stop_epoch= np.argmin(history1.history['val_loss'])
             loss_stop = history1.history['loss'][stop_epoch]
@@ -118,7 +119,8 @@ class train_model_cv():
                 y_train = [X,y_train]
                 y_valid = [X_val,y_valid]
 
-            history2= self.fit_model(X,y_train,X_val, y_valid,batch_size=batch_size,epochs=(stop_epoch+1)*2,verbose=verbose,callbacks=callbacks_names,retrain=True)
+            history2= self.fit_model(X,y_train,X_val, y_valid,batch_size=batch_size,epochs=(stop_epoch+1)*2,
+                                        verbose=verbose,callbacks=callbacks_names,retrain=True)
             History.append(history2)
             self.model.load_weights(self.callbacks['checkpoint_valid'].filepath)
 
@@ -141,7 +143,8 @@ class train_model_cv():
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
 
-            history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,verbose=verbose,callbacks=callbacks_names)
+            history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
+                                        verbose=verbose,callbacks=callbacks_names)
             History.append(history1)
             stop_epoch= np.argmin(history1.history['val_loss'])
             loss_stop = history1.history['loss'][stop_epoch]
@@ -158,7 +161,8 @@ class train_model_cv():
             if autoencoder:
                 y_train = [X,y_train]
 
-            history2= self.fit_model(X,y_train,X_ts, y_ts,batch_size=batch_size,epochs=(stop_epoch+1)*2,verbose=verbose,callbacks=callbacks_names,retrain=True)
+            history2= self.fit_model(X,y_train,X_ts, y_ts,batch_size=batch_size,epochs=(stop_epoch+1)*2,
+                                                            verbose=verbose,callbacks=callbacks_names,retrain=True)
             History.append(history2)
             self.model.load_weights(self.callbacks['checkpoint_valid'].filepath)
 
