@@ -244,8 +244,8 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None
   #norm_c=False,norm_max_min=False,plot_int=False,transpose=False)
   if function_combination:
     # get time and ch length
-    time = X_train.shape[2]
-    ch = X_train.shape[1]
+    time = X.shape[2]
+    ch = X.shape[1]
     # apply function combination over relM_, last index refers to layers
     relM_ = function_combination(relM_,axis=-1)
     # rearrange tmpr_ from [1,ch*layers,time*classes] to [1,classes,ch,time,layers]
