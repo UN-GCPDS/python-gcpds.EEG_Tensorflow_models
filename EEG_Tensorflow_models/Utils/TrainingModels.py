@@ -126,8 +126,8 @@ class train_model_cv():
                 y_train = [X,y_train]
                 y_valid = [X_val,y_valid]
             elif autoencoder and triplet_loss:
-                y_tr = [X_tr,y_train,y_train]
-                y_ts = [X_ts,y_valid,y_valid]
+                y_train = [X,y_train,y_train]
+                y_valid = [X_val,y_valid,y_valid]
                 #callbacks_names.append(self.callbacks['CSVLogger'])
                 #callbacks_names.append(self.callbacks['reduce_lr'])
 
