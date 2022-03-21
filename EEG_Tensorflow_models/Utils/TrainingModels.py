@@ -50,6 +50,7 @@ def get_loss(loss_name):
     if type(loss_name)==str:
         loss_name = [loss_name]
     for i in loss_name:
+        print(i)
         if i == 'CategoricalCrossentropy':
             loss.append(tf.keras.losses.CategoricalCrossentropy())
         elif i == 'mse':
