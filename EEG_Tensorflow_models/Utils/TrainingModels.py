@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d, Shallownet_1conv2d_rff, MTVAE_1conv2d
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d, Shallownet_1conv2d_rff, MTVAE_1conv2d, MIN2NET
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
@@ -9,7 +9,7 @@ def get_optimizer(optimizer,opt_args):#lr = 0.01,weight_decay = 0.0005):
     if optimizer == 'AdamW':
         opt = tfa.optimizers.AdamW(learning_rate=opt_args['lr'],weight_decay=opt_args['weight_decay'])
     elif optimizer == 'Adam':
-        opt = tf.keras.optimizers.Adam(learning_rate=opt_args['lr'],beta_1=opt_args['beta_1'])
+        opt = tf.keras.optimizers.Adam(learning_rate=opt_args['lr'],beta_1=opt_args['beta_1'],epsilon=opt_args['epsilon'])
     return opt
 
 def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, dropoutRate = 0.5):
@@ -40,6 +40,8 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
         model = Shallownet_1conv2d_rff(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
     elif model_name == 'MTVAE_1conv2d':
         model = MTVAE_1conv2d(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'])
+    elif model_name == 'MIN2NET':
+        model = MIN2NET(nb_classes=model_args['nb_classes'], Chans=model_args['Chans'], Samples = model_args['Samples'], latent_dim=model_args['latent_dim'])
     return model
 
 def get_loss(loss_name):
@@ -83,7 +85,7 @@ class train_model_cv():
         preds = self.model.predict(X)
         return preds
 
-    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False,early_stopping=False):
+    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False,early_stopping=False,triplet_loss=False):
         History = []
         num_classes = len(np.unique(y))
         if val_mode=='schirrmeister2017':
@@ -94,9 +96,14 @@ class train_model_cv():
 
             callbacks_names = [self.callbacks['early_stopping_train'],self.callbacks['checkpoint_train']]
 
-            if autoencoder:
+            if autoencoder and not triplet_loss:
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
+            elif autoencoder and triplet_loss:
+                y_tr = [X_tr,y_tr,y_tr]
+                y_ts = [X_ts,y_ts,y_ts]
+                callbacks_names.append(self.callbacks['CSVLogger'])
+                callbacks_names.append(self.callbacks['reduce_lr'])
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
                                         verbose=verbose,callbacks=callbacks_names)
@@ -115,9 +122,14 @@ class train_model_cv():
             y_train= tf.keras.utils.to_categorical(y,num_classes=num_classes)
             y_valid= tf.keras.utils.to_categorical(y_val,num_classes=num_classes)
 
-            if autoencoder:
+            if autoencoder and not triplet_loss:
                 y_train = [X,y_train]
                 y_valid = [X_val,y_valid]
+            elif autoencoder and triplet_loss:
+                y_tr = [X_tr,y_tr,y_tr]
+                y_ts = [X_ts,y_ts,y_ts]
+                callbacks_names.append(self.callbacks['CSVLogger'])
+                callbacks_names.append(self.callbacks['reduce_lr'])
 
             history2= self.fit_model(X,y_train,X_val, y_valid,batch_size=batch_size,epochs=(stop_epoch+1)*2,
                                         verbose=verbose,callbacks=callbacks_names,retrain=True)
