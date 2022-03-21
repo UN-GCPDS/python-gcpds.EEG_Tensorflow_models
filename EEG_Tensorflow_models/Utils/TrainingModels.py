@@ -103,7 +103,7 @@ class train_model_cv():
                 y_tr = [X_tr,y_tr,y_tr]
                 y_ts = [X_ts,y_ts,y_ts]
                 #callbacks_names.append(self.callbacks['CSVLogger'])
-                callbacks_names.append(self.callbacks['reduce_lr'])
+                callbacks_names.append(self.callbacks['reduce_lr_train'])
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
                                         verbose=verbose,callbacks=callbacks_names)
