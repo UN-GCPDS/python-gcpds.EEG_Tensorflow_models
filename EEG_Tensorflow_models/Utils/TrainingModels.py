@@ -103,6 +103,7 @@ class train_model_cv():
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
             elif autoencoder and triplet_loss:
+                print('aqui')
                 y_tr = [X_tr,y_tr,y_tr]
                 y_ts = [X_ts,y_ts,y_ts]
                 #callbacks_names.append(self.callbacks['CSVLogger'])
