@@ -102,7 +102,7 @@ class train_model_cv():
             elif autoencoder and triplet_loss:
                 y_tr = [X_tr,y_tr,y_tr]
                 y_ts = [X_ts,y_ts,y_ts]
-                callbacks_names.append(self.callbacks['CSVLogger'])
+                #callbacks_names.append(self.callbacks['CSVLogger'])
                 callbacks_names.append(self.callbacks['reduce_lr'])
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
@@ -128,8 +128,8 @@ class train_model_cv():
             elif autoencoder and triplet_loss:
                 y_train = [X,y_train,y_train]
                 y_valid = [X_val,y_valid,y_valid]
-                callbacks_names.append(self.callbacks['CSVLogger'])
-                callbacks_names.append(self.callbacks['reduce_lr'])
+                #callbacks_names.append(self.callbacks['CSVLogger'])
+                callbacks_names.append(self.callbacks['reduce_lr_train'])
 
             history2= self.fit_model(X,y_train,X_val, y_valid,batch_size=batch_size,epochs=(stop_epoch+1)*2,
                                         verbose=verbose,callbacks=callbacks_names,retrain=True)
