@@ -55,6 +55,7 @@ def get_loss(loss_name):
         elif i == 'mse':
             loss.append(tf.keras.losses.MeanSquaredError())
         elif i == 'triplet':
+            print('here!!!!')
             loss.append(triplet_loss())
         else:
             loss.append(i)
