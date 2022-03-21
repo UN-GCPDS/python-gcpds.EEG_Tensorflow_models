@@ -106,8 +106,8 @@ class train_model_cv():
                 y_ts = [X_ts,y_ts]
             elif autoencoder and triplet_loss:
                 print('aqui')
-                y_tr = [X_tr,y_tr,y_tr]
-                y_ts = [X_ts,y_ts,y_ts]
+                y_tr = [X_tr,np.argmax(y_tr),y_tr]
+                y_ts = [X_ts,np.argmax(y_ts),y_ts]
                 #callbacks_names.append(self.callbacks['CSVLogger'])
                 callbacks_names.append(self.callbacks['reduce_lr_train'])
 
@@ -132,8 +132,8 @@ class train_model_cv():
                 y_train = [X,y_train]
                 y_valid = [X_val,y_valid]
             elif autoencoder and triplet_loss:
-                y_train = [X,y_train,y_train]
-                y_valid = [X_val,y_valid,y_valid]
+                y_train = [X,np.argmax(y_train),y_train]
+                y_valid = [X_val,np.argmax(y_valid),y_valid]
                 #callbacks_names.append(self.callbacks['CSVLogger'])
                 callbacks_names.append(self.callbacks['reduce_lr_train'])
 
