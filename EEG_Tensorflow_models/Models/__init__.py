@@ -8,3 +8,4 @@ from .MTVAE import MTVAE
 from .Shallownet_1conv2d import Shallownet_1conv2d
 from .Shallownet_1conv2d_rff import Shallownet_1conv2d_rff
 from .MTVAE_1conv2d import MTVAE_1conv2d
+from .MIN2NET import MIN2NET
