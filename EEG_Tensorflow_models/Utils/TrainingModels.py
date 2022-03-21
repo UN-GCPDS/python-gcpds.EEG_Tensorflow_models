@@ -1,5 +1,6 @@
 
 from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d, Shallownet_1conv2d_rff, MTVAE_1conv2d, MIN2NET
+from EEG_Tensorflow_models.Utils import triplet_loss
 import tensorflow_addons as tfa
 import numpy as np
 import tensorflow as tf
@@ -53,6 +54,8 @@ def get_loss(loss_name):
             loss.append(tf.keras.losses.CategoricalCrossentropy())
         elif i == 'mse':
             loss.append(tf.keras.losses.MeanSquaredError())
+        elif i == 'triplet':
+            loss.append(triplet_loss())
         else:
             loss.append(i)
     return loss
