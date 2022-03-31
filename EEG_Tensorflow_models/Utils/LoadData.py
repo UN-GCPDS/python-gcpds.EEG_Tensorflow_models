@@ -115,6 +115,9 @@ def get_classes(X, y, classes_id):
   bool_idx = np.zeros(y.shape[0], dtype=np.bool8)
   for cls_id in classes_id:
     bool_idx += (y == cls_id)
-
-  return X[bool_idx], y[bool_idx]
+  y_=y[bool_idx]
+  y_end=np.copy(y_)
+  for k,label in enumerate(np.unique(y_)):
+    y_end[y_==label] =k
+  return X[bool_idx], y_end
     
