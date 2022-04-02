@@ -99,7 +99,7 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
     elif rel_model_name == 'Gradcam++':
         gradcamw = GradcamPlusPlus(modelw,
                               model_modifier=replace2linear,
-                              clone=False) 
+                              clone=True) 
         
     elif rel_model_name == 'Scorecam':
         scorecamw = Scorecam(modelw)
@@ -115,7 +115,7 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
         n_inputs = len(X_train)
         new_input = [None]*n_inputs
 
-    for c in range(nC):  
+    for c in range(len(np.unique(y_train))):  
       id_sample = y_train == np.unique(y_train)[c]
 
       if (type(X_train)==list) and (rel_model_name != 'Saliency'):
@@ -155,6 +155,7 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
                           normalize_cam=normalize_cam) #max_N=10 -> faster scorecam
       
           #save model
+
           if rel_model_name != 'Saliency':
             if type(X_train)==list: 
               tcc = rel[0]
