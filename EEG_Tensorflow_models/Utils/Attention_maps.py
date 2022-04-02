@@ -242,7 +242,7 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None
   tmpr_ = [None]*len(rel_model_name)
   for m in range(len(rel_model_name)):
       relM_[m],tmpr_[m] = attention_wide(model,rel_model_name[m],layer_name,
-                                        X,y,kwargs)
+                                        X,y,**kwargs)
   #norm_c=False,norm_max_min=False,plot_int=False,transpose=False)
   if function_combination:
     # apply function combination over relM_, last index refers to layers
