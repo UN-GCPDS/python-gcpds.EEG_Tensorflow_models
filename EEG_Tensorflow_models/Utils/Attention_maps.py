@@ -115,7 +115,7 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
         n_inputs = len(X_train)
         new_input = [None]*n_inputs
 
-    for c in range(len(np.unique(y_train))):  
+    for c in range(nC):  
       id_sample = y_train == np.unique(y_train)[c]
 
       if (type(X_train)==list) and (rel_model_name != 'Saliency'):
@@ -225,7 +225,8 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None
   #rel_model_name = #Gradcam, Gradcam++, Saliency, Scorecam
   #layer_name = layer name in the model, must be a list of strings. If string it will be loaded as regular expresion
   #model =  TF model\
-
+  # number of clases
+  nc = len(np.unique(y))
   # get all layer names
   model_layer_names=list(map(lambda x: x.name,model.layers))
   #if layer_name is str, it is considered as a regular expresion
@@ -243,15 +244,13 @@ def Attention_maps(rel_model_name,layer_name,model,X,y,function_combination=None
                                         X,y,kwargs)
   #norm_c=False,norm_max_min=False,plot_int=False,transpose=False)
   if function_combination:
-    # get time and ch length
-    time = X.shape[2]
-    ch = X.shape[1]
     # apply function combination over relM_, last index refers to layers
     relM_ = function_combination(relM_,axis=-1)
     # rearrange tmpr_ from [1,ch*layers,time*classes] to [1,classes,ch,time,layers]
-    r= np.asarray(np.split(np.asarray(tmpr_),ch,axis=1))
-    r2 = np.asarray(np.split(r,time,axis=-1))
-    # moving  [time(3),ch(2),1(0),layers(4),classes(1)] to [1,classes,ch,time,layers]
-    r3=np.moveaxis(r2,[0,1,2,3,4],[3,2,0,4,1])
+    r= np.asarray(np.split(np.asarray(tmpr_),len(layer_name),axis=1))
+    r2 = np.asarray(np.split(r,nc,axis=-1))
+    # moving  [classes,layers,1,ch,time] to [1,classes,ch,time,layers]
+    r3=np.moveaxis(r2,[0,1,2,3,4],[1,4,0,2,3])
     tmpr_ = function_combination(r3,axis=-1)
+
   return relM_,tmpr_
