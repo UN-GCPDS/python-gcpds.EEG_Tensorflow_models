@@ -91,7 +91,6 @@ def attention_wide(modelw,rel_model_name,layer_name,X_train,y_train,
     # change activations of last layer by linear
     replace2linear = ReplaceToLinear()
     #relevance model
-    print(normalize_cam,norm_max_min,norm_c)
     if rel_model_name == 'Gradcam':
         gradcamw = Gradcam(modelw,
                         model_modifier=replace2linear,
