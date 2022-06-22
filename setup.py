@@ -18,12 +18,12 @@ setup(
 
     download_url='',
 
-    install_requires=[#'braindecode @ git+https://github.com/braindecode/braindecode',
-                      #'moabb @ git+https://github.com/UN-GCPDS/moabb.git',
+    install_requires=['braindecode @ git+https://github.com/braindecode/braindecode',
+                      'moabb @ git+https://github.com/UN-GCPDS/moabb.git',
                       'tensorflow-addons',
                       'tensorflow>=2.8',
-                      #'tf-keras-vis',
-                      #'mne==0.23.3',
+                      'tf-keras-vis',
+                      'mne==0.23.3',
                       ],
 
     include_package_data=True,
