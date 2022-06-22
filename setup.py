@@ -23,7 +23,7 @@ setup(
                       'tensorflow-addons',
                       'tensorflow>=2.8',
                       'tf-keras-vis',
-                      'mne==0.23.3',
+                      #'mne==0.23.3',
                       ],
 
     include_package_data=True,
