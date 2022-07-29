@@ -22,7 +22,7 @@ The author of this model is Karel Roots and was published along with the paper t
 "Fusion Convolutional Neural Network for Cross-Subject EEG Motor Imagery Classification"
 """
 
-def EEGNet(nb_classes, Chans = 64, Samples = 128,  
+def EEGNet_fusion(nb_classes, Chans = 64, Samples = 128,  
            conv_filt1 = 64, conv_filt2 = 128, conv_filt3 = 256, 
            separable_filt1 = 8, separable_filt2 = 16, separable_filt3 = 32,
            F1 = 4, F1_2 = 8, F1_3 = 16,
