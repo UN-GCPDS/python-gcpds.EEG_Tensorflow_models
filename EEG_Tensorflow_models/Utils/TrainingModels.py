@@ -26,7 +26,7 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
                             conv_filt2 = model_args['conv_filt2'], conv_filt3 = model_args['conv_filt3'], separable_filt1 = model_args['separable_filt1'], 
                             separable_filt2 = model_args['separable_filt2'], separable_filt3 = model_args['separable_filt3'], F1 = model_args['F1'], F1_2 = model_args['F1_2'], 
                             F1_3 = model_args['F1_3'], F2 = model_args['F2'], F2_2 = model_args['F2_2'], F2_3 = model_args['F2_3'], D = model_args['D'], D2 = model_args['D2'], 
-                            D3 = model_args['D3'], dropoutRate = model_args['dropoutRate'], norm_rate = model_args['norm_rate'], dropoutType = model_args['Dropout'])
+                            D3 = model_args['D3'], dropoutRate = model_args['dropoutRate'], norm_rate = model_args['norm_rate'], dropoutType = model_args['dropoutType'])
     elif model_name=='ShallowConvNet':
         model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],
                                version = model_args['version'])
