@@ -1,5 +1,5 @@
 
-from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d, Shallownet_1conv2d_rff, MTVAE_1conv2d, MIN2NET
+from EEG_Tensorflow_models.Models import DeepConvNet, EEGNet, EEGNet_fusion, ShallowConvNet, DMTL_BCI, TCNet_fusion, PST_attention, MTVAE, Shallownet_1conv2d, Shallownet_1conv2d_rff, MTVAE_1conv2d, MIN2NET
 from EEG_Tensorflow_models.Utils.Losses import triplet_loss
 import tensorflow_addons as tfa
 import numpy as np
@@ -21,6 +21,12 @@ def get_model(model_name,model_args):#, nb_classes=4, Chans =22, Samples = 250, 
         model = EEGNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'], 
                        kernLength = model_args['kernLength'], F1 = model_args['F1'], D = model_args['D'], F2 = model_args['F2'], norm_rate = model_args['norm_rate'], 
                        dropoutType = model_args['dropoutType'])
+    elif model_name=='EEGNet_fusion':
+        model= EEGNet_fusion(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], conv_filt1 = model_args['conv_filt1'], 
+                            conv_filt2 = model_args['conv_filt2'], conv_filt3 = model_args['conv_filt3'], separable_filt1 = model_args['separable_filt1'], 
+                            separable_filt2 = model_args['separable_filt2'], separable_filt3 = model_args['separable_filt3'], F1 = model_args['F1'], F1_2 = model_args['F1_2'], 
+                            F1_3 = model_args['F1_3'], F2 = model_args['F2'], F2_2 = model_args['F2_2'], F2_3 = model_args['F2_3'], D = model_args['D'], D2 = model_args['D2'], 
+                            D3 = model_args['D3'], dropoutRate = model_args['dropoutRate'], norm_rate = model_args['norm_rate'], dropoutType = model_args['Dropout'])
     elif model_name=='ShallowConvNet':
         model = ShallowConvNet(nb_classes=model_args['nb_classes'], Chans = model_args['Chans'], Samples = model_args['Samples'], dropoutRate = model_args['dropoutRate'],
                                version = model_args['version'])

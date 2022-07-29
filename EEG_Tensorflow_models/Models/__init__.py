@@ -1,5 +1,6 @@
 from .DeepConvNet import DeepConvNet
 from .EEGNet import EEGNet
+from .EEGNet_fusion import EEGNet_fusion
 from .ShallowConvNet import ShallowConvNet
 from .DMTL_BCI import DMTL_BCI
 from .TCNet_fusion import TCNet_fusion
