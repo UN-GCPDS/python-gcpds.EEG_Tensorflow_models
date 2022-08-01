@@ -96,7 +96,7 @@ class train_model_cv():
         preds = self.model.predict(X)
         return preds
 
-    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False,early_stopping=False,triplet_loss=False):
+    def fit_validation(self,X,y,X_val=None,y_val=None,batch_size=64,epochs=1000,verbose=1,val_mode=None,autoencoder=False,early_stopping=False,triplet_loss=False,model_name=None):
         History = []
         num_classes = len(np.unique(y))
         if val_mode=='schirrmeister2017':
@@ -167,8 +167,15 @@ class train_model_cv():
                 y_tr = [X_tr,y_tr]
                 y_ts = [X_ts,y_ts]
 
+            if model_name == 'EEGNet_fusion':
+                X_tr = [X_tr,X_tr,X_tr]
+                X_ts = [X_ts,X_ts,X_ts]
+
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
                                         verbose=verbose,callbacks=callbacks_names)
+            
+            
+
             History.append(history1)
             stop_epoch= np.argmin(history1.history['val_loss'])
             loss_stop = history1.history['loss'][stop_epoch]
