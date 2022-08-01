@@ -173,8 +173,6 @@ class train_model_cv():
 
             history1 = self.fit_model(X_tr, y_tr,X_ts, y_ts,batch_size=batch_size,epochs=epochs,
                                         verbose=verbose,callbacks=callbacks_names)
-            
-            
 
             History.append(history1)
             stop_epoch= np.argmin(history1.history['val_loss'])
@@ -192,6 +190,9 @@ class train_model_cv():
             if autoencoder:
                 y_train = [X,y_train]
 
+            if model_name == 'EEGNet_fusion':
+                X = [X,X,X]
+            
             history2= self.fit_model(X,y_train,X_ts, y_ts,batch_size=batch_size,epochs=(stop_epoch+1)*2,
                                                             verbose=verbose,callbacks=callbacks_names,retrain=True)
             History.append(history2)
