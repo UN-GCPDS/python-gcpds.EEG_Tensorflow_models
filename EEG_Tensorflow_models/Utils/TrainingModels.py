@@ -200,6 +200,8 @@ class train_model_cv():
 
             if autoencoder:
                 self.preds = self.predict(X_val)[-1]
+            elif model_name == 'EEGNet_fusion':
+                self.preds = self.predict([X_val,X_val,X_val])
             else:
                 self.preds = self.predict(X_val)
 
