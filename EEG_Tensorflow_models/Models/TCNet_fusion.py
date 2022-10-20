@@ -7,13 +7,12 @@ from tensorflow.keras.layers import Dropout, Add, Lambda,DepthwiseConv2D,Input, 
 from tensorflow.keras.constraints import max_norm
 
 
-def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10, dropout=0, activation='relu', F1=4, D=2, kernLength=64, dropout_eeg=0.1):
+def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=2, kernel_s=4,filt=12, dropout=0.3, activation='relu', F1=24, D=2, kernLength=32,N_residuals = 2):
     
     input1 = Input((Chans, Samples, 1),name='Input')
     input2 = Permute((2,1,3))(input1)
     regRate=.25
-    numFilters = F1
-    F2= numFilters*D
+    F2= F1*D
     
     block1 = Conv2D(F1, (kernLength, 1), padding = 'same',
                             name='Conv2D_1',
@@ -38,6 +37,9 @@ def TCNet_fusion(nb_classes,Chans=64, Samples=128, layers=3, kernel_s=10,filt=10
     block3 = Dropout(dropout)(block3)    
     block2 = Lambda(lambda x: x[:,:,-1,:])(block3)
     outs = TCN_block(input_layer=block2,input_dimension=F2,depth=layers,kernel_size=kernel_s,filters=filt,dropout=dropout,activation=activation)
+    if N_residuals>1:
+      for k in range(1,N_residuals):
+        outs = TCN_block(input_layer=outs,input_dimension=F2,depth=layers,kernel_size=kernel_s,filters=filt,dropout=dropout,activation=activation)    
     CON1 = concatenate([outs,block2])
     FC1=Flatten()(block2)
     FC2=Flatten()(CON1)
