@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='EEG_Tensorflow_models',
-    version='0.1',
+    version='0.2',
     packages=['EEG_Tensorflow_models'],
 
     author='D.G Garcia-Murillo, J.C Caicedo-Acosta',
@@ -23,7 +23,7 @@ setup(
                       'tensorflow-addons',
                       'tensorflow>=2.8',
                       'tf-keras-vis',
-                      #'mne==0.23.3',
+                      # 'mne==0.23.3',
                       ],
 
     include_package_data=True,

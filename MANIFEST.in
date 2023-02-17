@@ -1,0 +1,7 @@
+recursive-include EEG_Tensorflow_models/ *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *.h5
+recursive-exclude Examples/ *
+recursive-exclude Experimental/ *
+recursive-exclude Results/ *
