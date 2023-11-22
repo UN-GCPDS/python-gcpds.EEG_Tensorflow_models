@@ -42,7 +42,7 @@ def get_epochs(dset):
 
 
 
-def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high_cut_hz = 38., trial_start_offset_seconds = -0.5,
+def load_dataset(dataset_name="BNCI2014_001", subject_id=1, low_cut_hz = 4., high_cut_hz = 38., trial_start_offset_seconds = -0.5,
                  trial_stop_offset_seconds=0,Channels=None,Classes = None,split=True):
 
     dataset = MOABBDataset(dataset_name=dataset_name, subject_ids=[subject_id])
@@ -90,8 +90,8 @@ def load_dataset(dataset_name="BNCI2014001", subject_id=1, low_cut_hz = 4., high
 
     splitted = windows_dataset.split('session')
     if split:
-        sess1 = 'session_T'
-        sess2 = 'session_E'
+        sess1 = '0train'
+        sess2 = '1test'
     else:
         sess1 = 'session_0'
         sess2 = 'session_0'
