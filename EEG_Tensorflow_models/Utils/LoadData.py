@@ -93,8 +93,8 @@ def load_dataset(dataset_name="BNCI2014_001", subject_id=1, low_cut_hz = 4., hig
         sess1 = '0train'
         sess2 = '1test'
     else:
-        sess1 = 'session_0'
-        sess2 = 'session_0'
+        sess1 = '0'
+        sess2 = '0'
     
     train_set = splitted[sess1]
     valid_set = splitted[sess2]
