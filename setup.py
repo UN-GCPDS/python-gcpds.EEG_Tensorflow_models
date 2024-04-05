@@ -19,7 +19,7 @@ setup(
     download_url='',
 
     install_requires=['braindecode == 0.7',
-                      'moabb @ git+https://github.com/UN-GCPDS/moabb.git',
+                      'moabb', #@ git+https://github.com/UN-GCPDS/moabb.git',
                       'tensorflow-addons',
                       'tensorflow>=2.8',
                       'tf-keras-vis',
