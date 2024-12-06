@@ -5,7 +5,7 @@ from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Input, Flatten
 from tensorflow.keras.constraints import max_norm
 from tensorflow.keras import backend as K
-from tensorflow.keras.layers.experimental.preprocessing import Resizing
+from tensorflow.keras.layers import Resizing
 from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.regularizers import l1_l2
 
